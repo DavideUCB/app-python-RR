@@ -807,7 +807,7 @@ while True:
                                             # Checking spreadsheet name to manage old BIBO formatting where names were different
                                             if sheet=="Study_Summary":
                                                 wbsheetsold[sheet].title="Study Summary"
-                                            elif sheet=="Risk":
+                                            elif sheet=="Risks":
                                                 wbsheetsold[sheet].title="Risk"
                                             elif sheet=="DCCs":
                                                 wbsheetsold[sheet].title="DCC"
@@ -825,7 +825,7 @@ while True:
                                             # Checking spreadsheet name to manage old BIBO formatting where names were different
                                             if sheet=="Study_Summary":
                                                 wbsheetsnew[sheet].title="Study Summary"
-                                            elif sheet=="Risk":
+                                            elif sheet=="Risks":
                                                 wbsheetsnew[sheet].title="Risk"
                                             elif sheet=="DCCs":
                                                 wbsheetsnew[sheet].title="DCC"
@@ -1610,8 +1610,8 @@ while True:
                                     try:
                                         print('####################################################################################')
                                         print('Formatting BIBO file, please wait...')
-                                        print('##################  Processing Risk #################')
-                                        def highlight_Risk(s):
+                                        print('##################  Processing Risks #################')
+                                        def highlight_Risks(s):
                                             if s.Mitigated_by_CRO == 'YES'and (s.Risk_Status == 'Active'
                                                                                or s.Risk_Status == 'Re-Assessment Open'
                                                                                or s.Risk_Status == 'Submitted'):
@@ -1645,18 +1645,18 @@ while True:
                                                'Risk Impact - Data Quality', 'Likelihood', 'Detection Capability',
                                                'Risk Priority Number (RPN)','# Associated Mitigations','Mitigated by CRO','Risk Comments']]
 
-                                        # Rename Columns to use later in the highlight Risk function
+                                        # Rename Columns to use later in the highlight Risks function
                                         dfRisk = dfRisk.rename(columns={"Mitigated by CRO": "Mitigated_by_CRO", "Risk Status":"Risk_Status"})
-                                        # Apply highlight_Risk function 
-                                        dfRisk = dfRisk.style.apply(highlight_Risk, axis=1)
+                                        # Apply highlight_Risks function 
+                                        dfRisk = dfRisk.style.apply(highlight_Risks, axis=1)
                                         # save Styler file
 
-                                        dfRisk.to_excel('dfRisk_Styler.xlsx', sheet_name='Risk',index=False)
+                                        dfRisk.to_excel("dfRisk_Styler.xlsx", sheet_name='Risks',index=False)
 
                                         # To open the workbook # workbook object is created 
                                         wb = xl.load_workbook('dfRisk_Styler.xlsx') 
                                         # Get workbook active sheet # from the active attribute.  
-                                        sheet = wb.active
+                                        sheet = wb['Risks']
 
                                         #Iteration over all rows:
                                         for col_cells in sheet.iter_cols():#min_col=2, max_col=2
@@ -1712,7 +1712,7 @@ while True:
                                                                   fill_type='solid')
 
                                         dfRisk_wb = load_workbook('1_dfRisk_.xlsx')
-                                        ws = dfRisk_wb['Risk']
+                                        ws = dfRisk_wb['Risks']
 
                                         # Enumerate the cells
                                         # property cell.border should be used instead of cell.style.border
@@ -1760,7 +1760,7 @@ while True:
                                         # Drop unnecessary Columns
                                         dfMitigation = dfMitigation.drop(['Mitigation Spotcheck', 'Mitigation Control Measure'], axis=1)
 
-                                        # Rename Columns to use later in the highlight Risk function
+                                        # Rename Columns to use later in the highlight Risks function
                                         dfMitigation = dfMitigation.rename(columns={"Mitigation Owner": "Mitigation_Owner", "Mitigation Status":"Mitigation_Status"})    
                                         # Apply highlight_Mitigations function 
                                         dfMitigation = dfMitigation.style.apply(highlight_Mitigations, axis=1)
@@ -2243,13 +2243,13 @@ while True:
                                         print('Adding filters')
 
                                         wb= xl.load_workbook(save_loc)
-                                        wsRisk = wb['Risk']
+                                        wsRisks = wb['Risks']
                                         wsMitigations = wb['Mitigations']
                                         wsDCCs = wb['DCCs']
                                         wsProcesses = wb['Processes']
                                         wsComments = wb['Comments']
 
-                                        wsRisk.auto_filter.ref = wsRisk.dimensions
+                                        wsRisks.auto_filter.ref = wsRisks.dimensions
                                         wsMitigations.auto_filter.ref = wsMitigations.dimensions
                                         wsDCCs.auto_filter.ref = wsDCCs.dimensions
                                         wsProcesses.auto_filter.ref = wsProcesses.dimensions
@@ -2257,8 +2257,8 @@ while True:
                                         print('######################################################')
                                         print('Freezing Panes')
 
-                                        wsRisk = wb['Risk']AC
-                                        wsRisk.freeze_panes='E2'
+                                        wsRisks = wb['Risks']
+                                        wsRisks.freeze_panes='E2'
                                         wsMitigations = wb['Mitigations']
                                         wsMitigations.freeze_panes='E2'
                                         wsDCCs = wb['DCCs']
@@ -2280,7 +2280,7 @@ while True:
                                         sheet = book["Study_Summary"] #book.sheetnames("Study_Summary")
                                         sheet.sheet_properties.tabColor = "999999"
 
-                                        sheet = book["Risk"]
+                                        sheet = book["Risks"]
                                         sheet.sheet_properties.tabColor = "6aa84f"
 
                                         sheet = book["Mitigations"]
