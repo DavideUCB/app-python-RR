@@ -720,7 +720,7 @@ while True:
                                             writer.save()
 
                                         #Function for comparing Study Summary spreasheets
-                                        def excel_diff_study_summary(old, new, index_col):
+                                        def excel_diff_Study_summary(old, new, index_col):
                                             df_OLD = pd.read_excel(old, index_col=index_col,na_filter=False,engine='openpyxl')
                                             df_NEW = pd.read_excel(new, index_col=index_col,na_filter=False,engine='openpyxl')
                                             df_OLD.reindex = pd.Series(df_NEW.index)
@@ -852,7 +852,7 @@ while True:
 
                                         # Following comparison code for every spreadsheet
 
-                                        ################################################ STUDY SUMMARY ########################################################        
+                                        ################################################ Study SUMMARY ########################################################        
                                             if sheet=="Study Summary":
                                                 print( "="*40+" "+"Sheet processed:  "+sheet+" "+"="*40 )
                                                 old = pd.read_excel(file1, sheet, na_values=[""],header=None,engine='openpyxl')
@@ -874,7 +874,7 @@ while True:
 
                                                 # step 2 Study
                                                 #creating raw file with Differences, Added Rows, Removed Rows
-                                                excel_diff_study_summary(path_OLD, path_NEW, 0)
+                                                excel_diff_Study_summary(path_OLD, path_NEW, 0)
                                                 output.append(path_OLD)
                                                 output.append(path_NEW)  
                                                 output.append(fname)
@@ -1695,7 +1695,7 @@ while True:
                                                 cell.alignment = alignment_obj 
 
                                         # save the file 
-                                        wb.save('1_dfRisk_.xlsx') 
+                                        wb.save('1_dfRisks_.xlsx') 
 
 
                                         _border = Border(left=Side(style='thin',color='dde6d6'), 
@@ -1711,7 +1711,7 @@ while True:
                                                                   end_color='0b64a0',
                                                                   fill_type='solid')
 
-                                        dfRisk_wb = load_workbook('1_dfRisk_.xlsx')
+                                        dfRisk_wb = load_workbook('1_dfRisks_.xlsx')
                                         ws = dfRisk_wb['Risks']
 
                                         # Enumerate the cells
@@ -1725,16 +1725,16 @@ while True:
                                             for cell in row_cells:
                                                 cell.fill = header_Fill
                                                 cell.font = header_font
-                                        dfRisk_wb.save('1_dfRisk_.xlsx')
+                                        dfRisk_wb.save('1_dfRisks_.xlsx')
 
                                         #Save Workbook
                                         current_directory = os.getcwd()
                                         folder = os.path.join(current_directory, r'spreadsheets')
                                         if not os.path.exists(folder):
                                             os.makedirs(folder)    
-                                        dfRisk_wb.save(folder +'/1_dfRisk_.xlsx')
+                                        dfRisk_wb.save(folder +'/1_dfRisks_.xlsx')
                                         os.remove("dfRisk_Styler.xlsx")
-                                        os.remove("1_dfRisk_.xlsx")
+                                        os.remove("1_dfRisks_.xlsx")
 
                                         ## Mitigations sheet
                                         print('##################  Processing Mitigations #################')
@@ -2101,7 +2101,7 @@ while True:
                                         dfStudy_Summary = pd.read_excel(file1, sheet_name = 'Study Summary',na_filter=False,engine='openpyxl')
                                         dfStudy_Summary = dfStudy_Summary.replace('N/A','Not Applicable')
                                         dfStudy_Summary = dfStudy_Summary[dfStudy_Summary['Last Refresh Date'] != '% RPN Score']
-                                        dfStudy_Summary = dfStudy_Summary[dfStudy_Summary['Last Refresh Date'] != 'Overall Protocol Risk Score']
+                                        dfStudy_Summary = dfStudy_Summary[dfStudy_Summary['Last Refresh Date'] != 'Overall Study Risk Score']
                                         dfStudy_Summary.to_excel('dfStudy_Summary.xlsx',index=False)
 
 
@@ -2196,10 +2196,10 @@ while True:
                                             xlPasteValues = -4163; lPasteFormats = -4122; xlWorkbookDefault = 51
 
                                             print('CREATE NEW WOKRBOOK')
-                                            if os.path.exists(os.getcwd()+'\\pre_final.xlsx'):
-                                                os.remove(os.getcwd()+'\\pre_final.xlsx') 
+                                            if os.path.exists(os.getcwd()+'/pre_final.xlsx'):
+                                                os.remove(os.getcwd()+'/pre_final.xlsx') 
 
-                                            save_loc=os.getcwd()+'\\pre_final.xlsx'
+                                            save_loc=os.getcwd()+'/pre_final.xlsx'
                                             new_wb = xlapp.Workbooks.Add()
                                             new_wb.SaveAs(save_loc, FileFormat=xlWorkbookDefault)
                                            # new_wb_Save(save_loc)
@@ -2312,7 +2312,7 @@ while True:
                                         trace_back = sys.exc_info()[2]
                                         line = trace_back.tb_lineno
                                         print("Process Exception in line {}: ".format(line), e)
-                                        allok=0
+                                        allok=w0
 
                             else:
                                 print('Something gone wrong, Follow the instruction above')
